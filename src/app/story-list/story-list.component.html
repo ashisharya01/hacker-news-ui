@@ -1,0 +1,30 @@
+<div>
+    <input type="text" placeholder="Search stories" (input)="search($event)">
+
+  </div>
+  
+  <div *ngIf="!filteredStories.length">
+    Loading stories...
+  </div>
+  <div *ngIf="stories">
+    <!-- Display stories -->
+    <ul>
+      <li *ngFor="let story of stories">
+        {{ story.title }}
+      </li>
+    </ul>
+  </div>
+  
+  
+  <ul>
+    <li *ngFor="let story of paginatedStories">
+      <a *ngIf="story.url" [href]="story.url" target="_blank">{{ story.title }}</a>
+      <span *ngIf="!story.url">{{ story.title }}</span>
+    </li>
+  </ul>
+  
+  <div>
+    <button (click)="page = page - 1" [disabled]="page === 1">Previous</button>
+    <button (click)="page = page + 1" [disabled]="page * pageSize >= filteredStories.length">Next</button>
+  </div>
+  
